@@ -1,0 +1,32 @@
+
+.btn-now {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: fit-content;
+    margin-top: 40px;
+    padding: 8px 12px;
+    border-radius: 60px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    overflow: hidden;
+    opacity: 0.9;
+}
+
+.btn-now p {
+    color: #292929;
+    transition: color 0.4s ease;
+}
+
+.btn-now img {
+    transition: transform 0.4s ease;
+}
+
+.btn-now:hover p {
+    color: #ff6b35;
+}
+
+.btn-now:hover img {
+    transform: translateX(8px);
+}

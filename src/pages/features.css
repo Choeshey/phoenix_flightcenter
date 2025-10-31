@@ -1,0 +1,115 @@
+/* Mobile First - Base styles for mobile */
+.features {
+    padding: 80px 20px;
+    background-color: #f8f9fa;
+}
+
+.features-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.features-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.features-header h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 16px;
+}
+
+.features-header p {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: #6c757d;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+.feature-card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.feature-card h3 {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    color: #6c757d;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Tablet styles */
+@media (min-width: 768px) {
+    .features {
+        padding: 120px 40px;
+    }
+
+    .features-header {
+        margin-bottom: 80px;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+
+    .feature-card {
+        padding: 50px 35px;
+    }
+}
+
+/* Desktop styles */
+@media (min-width: 1024px) {
+    .features {
+        padding: 150px 60px;
+    }
+
+    .features-header {
+        margin-bottom: 100px;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 50px;
+    }
+
+    .feature-card {
+        padding: 60px 40px;
+    }
+
+    .feature-icon {
+        font-size: 3.5rem;
+        margin-bottom: 25px;
+    }
+}
