@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import {Link} from "react-router-dom";
+import logo2 from "../assets/logo2.png";
 
 const About = () => {
   useEffect(() => {
@@ -6,6 +8,19 @@ const About = () => {
   }, []);
 
   return (
+      <div className="min-h-screen px-4 md:px-8 lg:px-16 bg-gradient-to-b from-[#faeade] to-[#faeade]  text-black">
+          {/* Header with Logo */}
+          <header className="py-6">
+              <div className="container mx-auto px-4">
+                  <Link to="/" className="inline-block transition-transform hover:scale-105">
+                      <img
+                          src={logo2}
+                          alt="Phoenix Flight Center"
+                          className="h-16 w-auto md:h-20"
+                      />
+                  </Link>
+              </div>
+          </header>
     <div className="min-h-screen pt-32 px-4 md:px-8 lg:px-16">
       <h1 className="text-4xl md:text-6xl font-bold mb-12 text-center">About Us</h1>
       <div className="max-w-4xl mx-auto space-y-8">
@@ -30,6 +45,7 @@ const About = () => {
         </div>
       </div>
     </div>
+      </div>
   );
 };
 

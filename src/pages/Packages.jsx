@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import paviation1 from "../assets/paviation1.jpg"
 import paviation2 from "../assets/paviation2.jpg"
 import paviation3 from "../assets/paviation3.jpg"
+import {Link} from "react-router-dom";
+import logo2 from "../assets/logo2.png";
 
 
 const Packages = () => {
@@ -32,6 +34,19 @@ const Packages = () => {
   ];
 
   return (
+      <div className="min-h-screen px-4 md:px-8 lg:px-16 bg-gradient-to-b from-[#faeade] to-[#faeade]  text-black">
+          {/* Header with Logo */}
+          <header className="py-6">
+              <div className="container mx-auto px-4">
+                  <Link to="/" className="inline-block transition-transform hover:scale-105">
+                      <img
+                          src={logo2}
+                          alt="Phoenix Flight Center"
+                          className="h-16 w-auto md:h-20"
+                      />
+                  </Link>
+              </div>
+          </header>
     <div className="min-h-screen pt-32 px-4 md:px-8 lg:px-16">
       <h1 className="text-4xl md:text-6xl font-bold mb-12 text-center">Our Packages</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -56,6 +71,7 @@ const Packages = () => {
         ))}
       </div>
     </div>
+          </div>
   );
 };
 

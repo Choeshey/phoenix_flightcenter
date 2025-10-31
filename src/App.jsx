@@ -6,6 +6,7 @@ import Services from "./pages/Services.jsx";
 import About from "./pages/About.jsx";
 import Packages from "./pages/Packages.jsx";
 import Contact from "./pages/Contact.jsx";
+import BookNow from "./pages/BookNow.jsx";
 import Footer from './components/Footer/Footer.jsx';
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger, ScrollSmoother, SplitText } from "gsap/all";
@@ -75,6 +76,12 @@ const App = () => {
           <Route path="/contact" element={
             <Layout>
               <Contact />
+              <Footer />
+            </Layout>
+          } />
+          <Route path="/book-now" element={
+            <Layout>
+              <BookNow />
               <Footer />
             </Layout>
           } />

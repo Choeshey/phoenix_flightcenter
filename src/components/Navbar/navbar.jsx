@@ -106,16 +106,16 @@ const Navbar = () => {
                  className="fixed z-50 flex flex-col justify-between w-full h-full px-10 uppercase bg-amber-950 text-gray-50 py-28 gap-y-10 md:w-1/2 md:left-1/2"
             >
                 <div className="flex flex-col text-5xl gap-y-2 md:text-4xl lg:text-6xl">
-                    {["", "services", "about", "packages", "contact"].map((section, index) => (
+                    {["", "services", "about", "packages", "contact", "book-now"].map((section, index) => (
                         <div key={index} ref={(el) => linkRef.current[index] = el}>
                             <RouterLink
-                                to={`/${section}`}
+                                to={`/${section === 'book-now' ? 'book-now' : section}`}
                                 className={`hover:text-gray-300/100 cursor-pointer transition-all duration-300 ${
                                     location.pathname === `/${section}` ? 'text-amber-400' : ''
                                 }`}
                                 onClick={toggleMenu}
                             >
-                                {section === '' ? 'home' : section}
+                                {section === '' ? 'home' : section === 'book-now' ? 'book now' : section}
                             </RouterLink>
 
                         </div>

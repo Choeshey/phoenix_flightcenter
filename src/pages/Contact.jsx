@@ -3,6 +3,8 @@ import './contact.css';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import {Link} from "react-router-dom";
+import logo2 from "../assets/logo2.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,6 +39,19 @@ const Contact = () => {
     }, []);
 
     return (
+        <div className="min-h-screen px-4 md:px-8 lg:px-16 bg-gradient-to-b from-[#faeade] to-[#faeade]  text-black">
+            {/* Header with Logo */}
+            <header className="py-6">
+                <div className="container mx-auto px-4">
+                    <Link to="/" className="inline-block transition-transform hover:scale-105">
+                        <img
+                            src={logo2}
+                            alt="Phoenix Flight Center"
+                            className="h-16 w-auto md:h-20"
+                        />
+                    </Link>
+                </div>
+            </header>
         <section id="contact" className="contact-section" ref={sectionRef}>
             <div className="contact-container">
                 <h2 className="contact-title">Get in Touch</h2>
@@ -58,6 +73,7 @@ const Contact = () => {
                 </form>
             </div>
         </section>
+            </div>
     );
 };
 

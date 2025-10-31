@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import "./hero.css"
 import arrow_btn from "../../assets/arrow_btn.png"
 import play_icon from "../../assets/play_icon.png"
@@ -12,7 +13,6 @@ import paviation4 from "../../assets/paviation4.png"
 import paviation5 from "../../assets/paviation5.png"
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
-import BookingForm from '../BookingForm/BookingForm';
 
 const Slider = ({playStatus, heroCount}) => {
     if (playStatus) {
@@ -43,8 +43,7 @@ const Slider = ({playStatus, heroCount}) => {
 
 const Hero = ({heroCount,setHeroCount,heroData, setPlayStatus, playStatus}) => {
     const heroRef = useRef(null);
-    const [showBookingForm, setShowBookingForm] = useState(false);
-
+    
     useGSAP(() => {
         const hero = heroRef.current;
         const logo = hero.querySelector(".w-24");
@@ -78,15 +77,13 @@ const Hero = ({heroCount,setHeroCount,heroData, setPlayStatus, playStatus}) => {
                         <p>{heroData[heroCount].text1}</p>
                         <p>{heroData[heroCount].text2}</p>
                     </div>
-<div 
-                    className="hero-explore" 
-                    onClick={() => setShowBookingForm(true)}
-                    style={{ cursor: 'pointer' }}
+<Link 
+                    to="/book-now" 
+                    className="hero-explore"
                 >
                     <p>Book Now</p>
                     <img src={arrow_btn} alt="arrow_btn"/>
-                </div>
-                {showBookingForm && <BookingForm onClose={() => setShowBookingForm(false)} />}
+                </Link>
                 </div>
                 <div className="hero-dot-play">
                     <ul className="hero-dots">
