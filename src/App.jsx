@@ -39,7 +39,7 @@ const App = () => {
   const [playStatus, setPlayStatus] = useState(false);
 
   return (
-    <Router>
+    <Router basename="/phoenix_flightcenter">
       <main>
         <Navbar />
         <Routes>

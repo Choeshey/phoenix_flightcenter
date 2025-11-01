@@ -1,133 +1,88 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
-import paviation3 from "../assets/paviation3.jpg"
-import paviation4 from "../assets/paviation4.jpg"
-
+import paviation3 from "../assets/paviation3.jpg";
+import paviation4 from "../assets/paviation4.jpg";
+import { useRef } from "react";
 
 const MessageSection = () => {
+    const sectionRef = useRef(null);
+
     useGSAP(() => {
-        // Font loading check before SplitText
-        const fontCheck = () => {
-            // Check if Font Loading API is supported
-            if (document.fonts && document.fonts.check) {
-                return document.fonts.check('16px Antonio') || document.fonts.check('16px ProximaNova');
-            }
-            // Fallback for browsers without Font Loading API
-            return true;
-        };
-
-        // Wait for fonts to load with timeout
-        const initializeSplitText = (timeoutCount = 0) => {
-            if (fontCheck()) {
-                createAnimations();
-            } else if (timeoutCount < 20) { // Max 2 seconds (20 * 100ms)
-                setTimeout(() => initializeSplitText(timeoutCount + 1), 100);
-            } else {
-                // Fallback: create animations anyway after timeout
-                console.warn("Fonts not loaded after timeout, creating animations with fallback");
-                createAnimations();
-            }
-        };
-
         const createAnimations = () => {
             try {
-                const firstMsgSplit = SplitText.create(".first-message", {
-                    type: "words",
-                });
-                const secMsgSplit = SplitText.create(".second-message", {
-                    type: "words",
-                });
-                const paragraphSplit = SplitText.create(".message-content p", {
-                    type: "words, lines",
-                    linesClass: "paragraph-line",
-                });
+                const firstMsgSplit = SplitText.create(".first-message", { type: "words", tags: "span" });
+                const secMsgSplit = SplitText.create(".second-message", { type: "words", tags: "span" });
+                const paragraphSplit = SplitText.create(".message-content p", { type: "words, lines", linesClass: "paragraph-line" });
 
-                gsap.to(firstMsgSplit.words, {
-                    color: "#faeade",
-                    ease: "power1.in",
-                    stagger: 1,
+                const masterTl = gsap.timeline({
                     scrollTrigger: {
-                        trigger: ".message-content",
-                        start: "top center",
-                        end: "30% center",
-                        scrub: true,
-                    },
-                });
-                gsap.to(secMsgSplit.words, {
-                    color: "#faeade",
-                    ease: "power1.in",
-                    stagger: 1,
-                    scrollTrigger: {
-                        trigger: ".second-message",
-                        start: "top center",
-                        end: "bottom center",
-                        scrub: true,
-                    },
-                });
-
-                const revealTl = gsap.timeline({
-                    delay: 1,
-                    scrollTrigger: {
-                        trigger: ".msg-text-scroll",
+                        trigger: sectionRef.current,
                         start: "top 60%",
-                    },
-                });
-                revealTl.to(".msg-text-scroll", {
-                    duration: 1,
-                    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-                    ease: "circ.inOut",
-                });
-                revealTl.to(".msg-text-scroll2", {
-                    duration: 1,
-                    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-                    ease: "circ.inOut",
+                        end: "bottom 80%",
+                        toggleActions: "play none none reverse", // Play on enter, reverse on leave
+                    }
                 });
 
-                const paragraphTl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: ".message-content p",
-                        start: "top center",
-                    },
-                });
-                paragraphTl.from(paragraphSplit.words, {
+                // Animate first message words
+                masterTl.to(firstMsgSplit.words, {
+                    color: "#faeade",
+                    ease: "power1.in",
+                    stagger: 0.5,
+                }, "start");
+
+                // Animate second message words, starting slightly after the first
+                masterTl.to(secMsgSplit.words, {
+                    color: "#faeade",
+                    ease: "power1.in",
+                    stagger: 0.5,
+                }, "start+=1");
+
+                // Reveal images
+                masterTl.to(".msg-text-scroll", {
+                    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+                    ease: "circ.inOut",
+                    duration: 1,
+                }, "start+=0.5");
+
+                masterTl.to(".msg-text-scroll2", {
+                    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+                    ease: "circ.inOut",
+                    duration: 1,
+                }, "start+=1");
+
+                // Animate paragraph words
+                masterTl.from(paragraphSplit.words, {
                     yPercent: 300,
                     rotate: 3,
                     ease: "power1.inOut",
                     duration: 1,
                     stagger: 0.01,
-                });
+                }, "start+=1.5");
 
-                // Hover effects for scroll elements
+                // Hover effects (kept separate as they are not scroll-dependent)
                 const scrollElements = gsap.utils.toArray(".msg-text-scroll, .msg-text-scroll2");
                 scrollElements.forEach((element) => {
                     const hoverTl = gsap.timeline({ paused: true });
-
-                    hoverTl.to(element, {
-                        scale: 1.05,
-                        rotation: 2,
-                        duration: 0.3,
-                        ease: "power2.out"
-                    }).to(element.querySelector('div'), {
-                        backgroundColor: "#f5e6d3",
-                        duration: 0.3,
-                        ease: "power2.out"
-                    }, 0);
+                    hoverTl.to(element, { scale: 1.05, rotation: 2, duration: 0.3, ease: "power2.out" })
+                           .to(element.querySelector('div'), { backgroundColor: "#f5e6d3", duration: 0.3, ease: "power2.out" }, 0);
 
                     element.addEventListener("mouseenter", () => hoverTl.play());
                     element.addEventListener("mouseleave", () => hoverTl.reverse());
                 });
+
             } catch (error) {
-                console.warn("SplitText initialization failed:", error);
+                console.warn("SplitText or GSAP animation failed:", error);
             }
         };
 
-        // Start checking for fonts
-        initializeSplitText();
-    });
+        // Simple delay to wait for font rendering, can be improved with a font loader library
+        setTimeout(createAnimations, 100);
+
+    }, { scope: sectionRef });
 
     return (
-        <section id="services" className="message-content" >
+        <section id="services" className="message-content" ref={sectionRef}>
             <div className="container mx-auto flex-center py-28 relative">
                 <div className="w-full h-full">
                     <div className="msg-wrapper">

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import './testimonial.css';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {testimonials} from "../contexts/index.js";
 
 
@@ -45,31 +44,21 @@ const Testimonial = () => {
     };
 
     useGSAP(() => {
-        const elements = gsap.utils.toArray('.testimonial-card');
-        
-        elements.forEach((element, i) => {
-            gsap.from(element, {
-                scrollTrigger: {
-                    trigger: element,
-                    start: "top 90%",
-                    end: "bottom 10%",
-                    toggleActions: "play none none none",
-                    scrub: 0.5,
-                    invalidateOnRefresh: true
-                },
-                y: 50,
-                opacity: 0,
-                duration: 1,
-                ease: "power2.out",
-                stagger: 0.1
-            });
+        gsap.from('.testimonial-card', {
+            scrollTrigger: {
+                trigger: sectionRef.current,
+                start: "top 80%",
+                end: "bottom 60%",
+                toggleActions: "play none none none",
+                scrub: 0.5,
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out",
+            stagger: 0.2
         });
-        
-        // Cleanup function
-        return () => {
-            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-        };
-    }, []);
+    }, { scope: sectionRef });
 
     return (
         <section className="testimonial-section" ref={sectionRef}>
