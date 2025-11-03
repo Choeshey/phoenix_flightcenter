@@ -50,7 +50,7 @@ const Slide = ({ slide }) => {
                 ref={imgRef}
                 src={slide.img}
                 alt={slide.title}
-                className="slide-image-img"
+                className="slide-image-img w-[560px] h-[560px] object-cover transition-all duration-300"
             />
             <div ref={textRef} className="absolute inset-0 flex items-center justify-center opacity-70 pointer-events-none">
                 <div className="vertical-text">
