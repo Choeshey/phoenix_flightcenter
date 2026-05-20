@@ -3,7 +3,8 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-    plugins: [
+  base: '/',  // ✅ changed from '/phoenix_flightcenter/'
+  plugins: [
     react({
       babel: {
         plugins: [['babel-plugin-react-compiler']],

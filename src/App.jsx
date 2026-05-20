@@ -45,7 +45,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={
             <Layout>
-              <Home 
+              <Home
                 setPlayStatus={setPlayStatus}
                 setHeroCount={setHeroCount}
                 heroData={heroData}
